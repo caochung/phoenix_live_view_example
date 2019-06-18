@@ -1,5 +1,6 @@
 defmodule DemoWeb.PicturesLive do
   use Phoenix.LiveView
+  alias DemoWeb.Router.Helpers, as: Routes
 
   @pictures %{
     "ySMOWp3oBZk" => %{author: "Ludomił", img: "https://images.unsplash.com/photo-1515532718572-84a0ef89c998"},
@@ -35,9 +36,17 @@ defmodule DemoWeb.PicturesLive do
     {:ok, socket}
   end
 
-  def handle_event("show", id, socket) do
+  def handle_params(%{"id" => id}, _uri, socket) do
     picture = @pictures[id]
     {:noreply, assign(socket, :selected_picture, picture)}
+  end
+
+  def handle_params(_, _uri, socket) do
+    {:noreply, assign(socket, :selected_picture, nil)}
+  end
+
+  def handle_event("show", id, socket) do
+    {:noreply, live_redirect(socket, to: Routes.live_path(socket, DemoWeb.PicturesLive, id))}
   end
 
   defp picture_url(img, :thumb),
