@@ -23,6 +23,10 @@ defmodule DemoWeb.Router do
     live "/pictures", PicturesLive
     live "/pictures/:id", PicturesLive
 
+    live "/moon", MoonLive
+    live "/moon/:moon", MoonLive
+
+
     live "/thermostat", ThermostatLive
     get "/snake", PageController, :snake
     live "/search", SearchLive

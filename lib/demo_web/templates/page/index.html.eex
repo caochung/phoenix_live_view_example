@@ -19,6 +19,8 @@
       <li><%= link "CRUD Users with Live pagination", to: Routes.live_path(@conn, DemoWeb.UserLive.Index) %></li>
       <li><%= link "Presence Example", to: Routes.live_path(@conn, DemoWeb.UserLive.PresenceIndex, "user#{System.unique_integer([:positive])}") %></li>
       <li><%= link "Pictures pushState Example", to: Routes.live_path(@conn, DemoWeb.PicturesLive) %></li>
+      <li><%= link "Moon animated URL Example", to: Routes.live_path(@conn, DemoWeb.MoonLive) %></li>
+
     </ul>
   </article>
 </section>
