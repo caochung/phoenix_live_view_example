@@ -14,10 +14,12 @@ defmodule DemoWeb.PicturesLive do
     ~L"""
     <div class="row">
       <%= for {id, pic} <- pictures do %>
-        <div class="column" phx-click="show" phx-value="<%= id %>">
-          <%= pic.author %>
-          <img src="<%= picture_url(pic.img, :thumb) %>">
-        </div>
+        <%= live_link to: Routes.live_path(@socket, DemoWeb.PicturesLive, id) do %>
+          <div class="column">
+            <%= pic.author %>
+            <img src="<%= picture_url(pic.img, :thumb) %>">
+          </div>
+        <% end %>
       <% end %>
     </div>
 
@@ -31,10 +33,6 @@ defmodule DemoWeb.PicturesLive do
     """
   end
 
-  def mount(_session, socket) do
-    socket = assign(socket, :selected_picture, nil)
-    {:ok, socket}
-  end
 
   def handle_params(%{"id" => id}, _uri, socket) do
     picture = @pictures[id]
@@ -45,8 +43,10 @@ defmodule DemoWeb.PicturesLive do
     {:noreply, assign(socket, :selected_picture, nil)}
   end
 
-  def handle_event("show", id, socket) do
-    {:noreply, live_redirect(socket, to: Routes.live_path(socket, DemoWeb.PicturesLive, id))}
+
+  def mount(_session, socket) do
+    socket = assign(socket, :selected_picture, nil)
+    {:ok, socket}
   end
 
   defp picture_url(img, :thumb),
