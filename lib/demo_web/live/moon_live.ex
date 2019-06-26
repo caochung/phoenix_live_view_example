@@ -38,7 +38,7 @@ defmodule DemoWeb.MoonLive do
     moon = Enum.at(@moons, idx)
     socket = assign(socket, :moon_idx, idx + 1)
     if socket.assigns.running, do: Process.send_after(self(), "next_moon", 100)
-    {:noreply, live_redirect(socket, to: Routes.live_path(socket, DemoWeb.MoonLive, moon))}
+    {:noreply, live_redirect(socket, to: Routes.live_path(socket, DemoWeb.MoonLive, moon), replace: true)}
   end
 
 
